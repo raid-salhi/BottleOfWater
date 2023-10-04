@@ -33,7 +33,7 @@ fun BottleOfWater(
                     x = width*0.3f , y=height * 0.2f
                 )
                 quadraticBezierTo(
-                    x1  = width*0.15f, y1 = height * 0.3f,
+                    x1  =0f, y1 = height * 0.3f,
                     x2 = 0f , y2 = height *0.4f
                 )
                 lineTo(
@@ -54,8 +54,8 @@ fun BottleOfWater(
                     x = width , y=height *0.4f
                 )
                 quadraticBezierTo(
-                    x1  = width*0.85f, y1 = height * 0.3f,
-                    x2 = 0.7f , y2 = height *0.2f
+                    x1  = width, y1 = height * 0.3f,
+                    x2 = width *0.7f , y2 = height *0.2f
                 )
                 lineTo(
                     x = width*0.7f , y=height * 0.1f
