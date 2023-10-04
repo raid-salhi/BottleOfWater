@@ -27,7 +27,7 @@ fun BottleOfWater(
     maxVolume:Int=2400,
     currentVolume:Int=0,
     waterColor:Color=Color(0xFF03A9F4),
-    capColor:Color= Color(0xFF3F51B5),
+    capColor:Color= Color(0xFF2196F3),
     bottleColor:Color= Color.White
 ) {
     val waterPercentage = animateFloatAsState(
