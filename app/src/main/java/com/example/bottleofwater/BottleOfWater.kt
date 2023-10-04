@@ -7,12 +7,19 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.clipPath
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun BottleOfWater(
@@ -34,6 +41,8 @@ fun BottleOfWater(
         Canvas(modifier = Modifier.fillMaxSize()){
             val width = size.width
             val height= size.height
+            val capWidth = width *0.6f
+            val capHeight= height *0.1f
             val bodyBottlePath = Path().apply {
                 moveTo(x = width*0.3f,y=height *0.1f)
                 lineTo(
@@ -69,14 +78,6 @@ fun BottleOfWater(
                 )
                 close()
             }
-            clipPath(
-                bodyBottlePath
-            ){
-                drawRect(
-                    color=bottleColor,
-                    size=size
-                )
-            }
             val waterWavesYPosition = (1-waterPercentage) *height
             val waterPath = Path().apply {
                 moveTo(
@@ -93,7 +94,31 @@ fun BottleOfWater(
                 )
                 close()
             }
-            drawPath(waterPath, color = waterColor)
+            clipPath(
+                bodyBottlePath
+            ){
+                drawRect(
+                    color=bottleColor,
+                    size=size
+                )
+                drawPath(waterPath, color = waterColor)
+            }
+
+            drawRoundRect(
+                color = capColor,
+                size= Size(capWidth,capHeight),
+                topLeft = Offset(
+                    x= width/2 - capWidth/2f , 0f
+                ),
+                cornerRadius = CornerRadius(45f,45f)
+            )
+        }
+        Box(modifier = Modifier.fillMaxSize(), Alignment.Center){
+            Text(
+                text = "$currentVolume ml",
+                fontSize = 20.sp,
+                color = if (currentVolume <= maxVolume/2) waterColor else Color.White
+            )
         }
     }
 }
