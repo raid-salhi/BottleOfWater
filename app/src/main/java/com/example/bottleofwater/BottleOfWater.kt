@@ -1,5 +1,7 @@
 package com.example.bottleofwater
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,6 +23,11 @@ fun BottleOfWater(
     capColor:Color= Color(0xFF3F51B5),
     bottleColor:Color= Color.White
 ) {
+    val waterPercentage = animateFloatAsState(
+        targetValue = currentVolume.toFloat() / maxVolume.toFloat(),
+        animationSpec = tween(1000)
+    ).value
+
     Box(modifier = modifier
         .width(200.dp)
         .height(600.dp)){
@@ -70,6 +77,23 @@ fun BottleOfWater(
                     size=size
                 )
             }
+            val waterWavesYPosition = (1-waterPercentage) *height
+            val waterPath = Path().apply {
+                moveTo(
+                    x= 0f, y=waterWavesYPosition
+                )
+                lineTo(
+                    x = width , y = waterWavesYPosition
+                )
+                lineTo(
+                    x = width , y = height
+                )
+                lineTo(
+                    x = 0f , y = height
+                )
+                close()
+            }
+            drawPath(waterPath, color = waterColor)
         }
     }
 }
